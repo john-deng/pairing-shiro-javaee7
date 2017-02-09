@@ -1,12 +1,14 @@
 node('maven') {
     // define commands
     def mvnCmd = "mvn"
-    def app='shiro-demo'
+    def app = "shiro-demo" 
+    sh "echo app: ${app}"
 
     configFileProvider(
     [configFile(fileId: 'maven-settings-xml', variable: 'MAVEN_SETTINGS')]) {
         mvnCmd = "mvn -s $MAVEN_SETTINGS"
     }
+    sh "echo mvn: ${mvnCmd}"
 
     stage ('Build') {
         git branch: 'master', url: 'http://gogs:3000/gogs/${app}.git'
